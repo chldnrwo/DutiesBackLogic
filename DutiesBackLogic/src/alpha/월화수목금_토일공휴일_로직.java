@@ -15,7 +15,7 @@ public class 월화수목금_토일공휴일_로직 {
         LocalDate currentDate = LocalDate.now().plusMonths(1);
         YearMonth nextMonth = YearMonth.of(currentDate.getYear(), currentDate.getMonth());
         int daysInMonth = nextMonth.lengthOfMonth();
-
+ 
         // 당월 휴가 목록
         List<Vacation> vacationSchedule = Arrays.asList(
             new Vacation(1, 1, "SS"),
