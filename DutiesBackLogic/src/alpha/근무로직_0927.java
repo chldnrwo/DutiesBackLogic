@@ -6,10 +6,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class 월화수목_금_토_일공휴일_로직 {
+public class 근무로직_0927 {
 
     public static void main(String[] args) {
-        List<String> members = Arrays.asList("최병훈", "최욱재", "조민기", "전상현", "조용현", "김종환", "이솔", "신선규");
+        List<String> members = Arrays.asList("최병훈", "최욱재", "조민기", "전상현", "조용현", "김종환", "이솔님", "신선규");
 
         // 현재 날짜를 기준으로 다음 달의 월을 가져옴
         LocalDate currentDate = LocalDate.now().plusMonths(1);
@@ -21,7 +21,7 @@ public class 월화수목_금_토_일공휴일_로직 {
 //        List<Vacation> vacationSchedule = Arrays.asList(
 //            new Vacation(1, 1, "신선규"),
 //            new Vacation(7, 9, "신선규"),
-//            new Vacation(1, 7, "이솔"),
+//            new Vacation(1, 7, "이솔님"),
 //            new Vacation(6, 8, "전상현"),
 //            new Vacation(6, 6, "조용현"),
 //            new Vacation(27, 27, "조용현"),
@@ -49,7 +49,7 @@ public class 월화수목_금_토_일공휴일_로직 {
             new Vacation(10, 13, "신선규"),
             new Vacation(11, 13, "조민기"),
             
-            new Vacation(12, 14, "이솔"),
+            new Vacation(12, 14, "이솔님"),
             new Vacation(12, 14, "조용현"),
             
             new Vacation(16, 16, "조민기"),
@@ -62,78 +62,90 @@ public class 월화수목_금_토_일공휴일_로직 {
         );
         
         Map<String, Integer> dutyCounts = new HashMap<>();
-        Map<String, Integer> weekendDutyCounts = new HashMap<>();
+        Map<String, Integer> weekendDutyCounts = new HashMap<>(); // 일요일 공휴일 근무 횟수
         Map<String, Integer> fridayDutyCounts = new HashMap<>(); // 금요일 근무 횟수
-        Map<String, Integer> lastDutyDay = new HashMap<>();
+        Map<String, Integer> saturdayDutyCounts = new HashMap<>();
+        Map<String, Integer> lastDutyDay = new HashMap<>();		// 최종 투입한지 얼마나 지났는지
         Map<String, Integer> mainDutyCounts = new HashMap<>();  // 메인 근무 횟수 카운트
         Map<String, Integer> subDutyCounts = new HashMap<>();   // 서브 근무 횟수 카운트
         for (String member : members) {
             dutyCounts.put(member, 0);
             weekendDutyCounts.put(member, 0);
             fridayDutyCounts.put(member, 0); // 금요일 근무 횟수 초기화
+            saturdayDutyCounts.put(member, 0);
             lastDutyDay.put(member, -1);
             mainDutyCounts.put(member, 0);
             subDutyCounts.put(member, 0);
         }
+        
         //9월 근무 수동입력
         dutyCounts.put("최병훈", 7);
-        weekendDutyCounts.put("최병훈", 0);
-        fridayDutyCounts.put("최병훈", 0); 
-        lastDutyDay.put("최병훈", -1);
-        mainDutyCounts.put("최병훈", 0);
-        subDutyCounts.put("최병훈", 0);
-        
-        dutyCounts.put("최욱재", 0);
-        weekendDutyCounts.put("최욱재", 0);
+        weekendDutyCounts.put("최병훈", 1);
+        fridayDutyCounts.put("최병훈", 1); 
+        saturdayDutyCounts.put("최병훈", 1);
+        lastDutyDay.put("최병훈", 25);
+        mainDutyCounts.put("최병훈", 3);
+        subDutyCounts.put("최병훈", 4);
+       
+        dutyCounts.put("최욱재", 7);
+        weekendDutyCounts.put("최욱재", 1);
         fridayDutyCounts.put("최욱재", 0); 
-        lastDutyDay.put("최욱재", -1);
-        mainDutyCounts.put("최욱재", 0);
-        subDutyCounts.put("최욱재", 0);
+        saturdayDutyCounts.put("최욱재", 2);
+        lastDutyDay.put("최욱재", 28);
+        mainDutyCounts.put("최욱재", 4);
+        subDutyCounts.put("최욱재", 3);
         
-        dutyCounts.put("조민기", 0);
-        weekendDutyCounts.put("조민기", 0);
-        fridayDutyCounts.put("조민기", 0); 
-        lastDutyDay.put("조민기", -1);
-        mainDutyCounts.put("조민기", 0);
-        subDutyCounts.put("조민기", 0);
+        dutyCounts.put("조민기", 8);
+        weekendDutyCounts.put("조민기", 2);
+        fridayDutyCounts.put("조민기", 2);
+        saturdayDutyCounts.put("조민기", 0);
+        lastDutyDay.put("조민기", 29);
+        mainDutyCounts.put("조민기", 4);
+        subDutyCounts.put("조민기", 4);
         
-        dutyCounts.put("전상현", 0);
-        weekendDutyCounts.put("전상현", 0);
-        fridayDutyCounts.put("전상현", 0); 
-        lastDutyDay.put("전상현", -1);
-        mainDutyCounts.put("전상현", 0);
-        subDutyCounts.put("전상현", 0);
+        dutyCounts.put("전상현", 8);
+        weekendDutyCounts.put("전상현", 1);
+        fridayDutyCounts.put("전상현", 2);
+        saturdayDutyCounts.put("전상현", 1);
+        lastDutyDay.put("전상현", 27);
+        mainDutyCounts.put("전상현", 4);
+        subDutyCounts.put("전상현", 4);
         
-        dutyCounts.put("조용현", 0);
-        weekendDutyCounts.put("조용현", 0);
-        fridayDutyCounts.put("조용현", 0); 
-        lastDutyDay.put("조용현", -1);
-        mainDutyCounts.put("조용현", 0);
-        subDutyCounts.put("조용현", 0);
+        dutyCounts.put("조용현", 8);
+        weekendDutyCounts.put("조용현", 1);
+        fridayDutyCounts.put("조용현", 0);
+        saturdayDutyCounts.put("조용현", 2);
+        lastDutyDay.put("조용현", 30);
+        mainDutyCounts.put("조용현", 4);
+        subDutyCounts.put("조용현", 4);
         
-        dutyCounts.put("김종환", 0);
-        weekendDutyCounts.put("김종환", 0);
-        fridayDutyCounts.put("김종환", 0); 
-        lastDutyDay.put("김종환", -1);
-        mainDutyCounts.put("김종환", 0);
-        subDutyCounts.put("김종환", 0);
+        dutyCounts.put("김종환", 8);
+        weekendDutyCounts.put("김종환", 2);
+        fridayDutyCounts.put("김종환", 1);
+        saturdayDutyCounts.put("김종환", 1);
+        lastDutyDay.put("김종환", 28);
+        mainDutyCounts.put("김종환", 4);
+        subDutyCounts.put("김종환", 4);
         
-        dutyCounts.put("이솔", 0);
-        weekendDutyCounts.put("이솔", 0);
-        fridayDutyCounts.put("이솔", 0); 
-        lastDutyDay.put("이솔", -1);
-        mainDutyCounts.put("이솔", 0);
-        subDutyCounts.put("이솔", 0);
+        dutyCounts.put("이솔님", 8);
+        weekendDutyCounts.put("이솔님", 1);
+        fridayDutyCounts.put("이솔님", 1);
+        saturdayDutyCounts.put("이솔님", 1);
+        lastDutyDay.put("이솔님", 27);
+        mainDutyCounts.put("이솔님", 4);
+        subDutyCounts.put("이솔님", 4);
         
-        dutyCounts.put("신선규", 0);
-        weekendDutyCounts.put("신선규", 0);
-        fridayDutyCounts.put("신선규", 0); 
-        lastDutyDay.put("신선규", -1);
-        mainDutyCounts.put("신선규", 0);
-        subDutyCounts.put("신선규", 0);
+        dutyCounts.put("신선규", 8);
+        weekendDutyCounts.put("신선규", 1);
+        fridayDutyCounts.put("신선규", 1);
+        saturdayDutyCounts.put("신선규", 1);
+        lastDutyDay.put("신선규", 30);
+        mainDutyCounts.put("신선규", 4);
+        subDutyCounts.put("신선규", 4);
         
         // 메인 함수 호출
-        List<Schedule> schedule = createSchedule(members, vacationSchedule, nextMonth, daysInMonth, dutyCounts, weekendDutyCounts, fridayDutyCounts, lastDutyDay, mainDutyCounts, subDutyCounts);
+        List<Schedule> schedule = createSchedule(members, vacationSchedule, nextMonth,
+        		daysInMonth, dutyCounts, weekendDutyCounts, fridayDutyCounts, lastDutyDay, mainDutyCounts, subDutyCounts, saturdayDutyCounts);
 
         // 스케줄 출력
         System.out.println("Schedule for " + nextMonth.getMonth() + " " + nextMonth.getYear());
@@ -144,7 +156,8 @@ public class 월화수목_금_토_일공휴일_로직 {
         Map<String, Integer> fridayCounts = new HashMap<>();   // 금요일 근무 횟수
         Map<String, Integer> saturdayCounts = new HashMap<>(); // 토요일 근무 횟수
         Map<String, Integer> sundayCounts = new HashMap<>();   // 일요일 및 공휴일 근무 횟수
-        
+        Map<String, Integer> mainDutyCountsCal = new HashMap<>();
+        Map<String, Integer> subDutyCountsCal = new HashMap<>();
         // 초기화
         for (String member : members) {
             weekdayCounts.put(member, 0);
@@ -152,8 +165,8 @@ public class 월화수목_금_토_일공휴일_로직 {
             saturdayCounts.put(member, 0);
             sundayCounts.put(member, 0);
             // mainDutyCounts와 subDutyCounts는 이미 선언되었으므로 초기화만 수행
-            mainDutyCounts.put(member, 0);
-            subDutyCounts.put(member, 0);
+            mainDutyCountsCal.put(member, 0);
+            subDutyCountsCal.put(member, 0);
         }
         
         // 근무 횟수 계산
@@ -177,33 +190,53 @@ public class 월화수목_금_토_일공휴일_로직 {
             }
         
             // 메인/서브 담당 횟수 카운트
-            mainDutyCounts.put(s.main, mainDutyCounts.get(s.main) + 1);
-            subDutyCounts.put(s.sub, subDutyCounts.get(s.sub) + 1);
+            mainDutyCountsCal.put(s.main, mainDutyCountsCal.get(s.main) + 1);
+            subDutyCountsCal.put(s.sub, subDutyCountsCal.get(s.sub) + 1);
         }
         
         // 근무 통계 출력
-        System.out.println("\nMember-wise Duty Distribution:");
+        System.out.println("\nOctober Member-wise Duty Distribution:");
         System.out.println("Member | Weekday Duties | Friday Duties | Saturday Duties | Sunday/Holiday Duties | Total Duties | Main Duties | Sub Duties");
-        System.out.println("-----------------------------------------------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------");
         
         for (String member : members) {
-            System.out.printf("%-4s | %-14d | %-13d | %-15d | %-22d | %-15d | %-11d | %-10d%n", 
+            System.out.printf("%-4s | %-14d | %-13d | %-15d | %-22d | %-12d | %-11d | %-10d%n", 
                               member, 
                               weekdayCounts.get(member),      // 월화수목 근무 횟수
                               fridayCounts.get(member),       // 금요일 근무 횟수
                               saturdayCounts.get(member),     // 토요일 근무 횟수
                               sundayCounts.get(member),       // 일요일 및 공휴일 근무 횟수
                               (weekdayCounts.get(member)+fridayCounts.get(member)+saturdayCounts.get(member)+sundayCounts.get(member)),								  // 총 근무 횟수
-                              mainDutyCounts.get(member),     // 메인 담당 횟수
-                              subDutyCounts.get(member));     // 서브 담당 횟수
+                              mainDutyCountsCal.get(member),     // 메인 담당 횟수
+                              subDutyCountsCal.get(member));     // 서브 담당 횟수
         }
+        
+        System.out.println();
+        System.out.println("\nTotal Member-wise Duty Distribution:");
+        System.out.println("Member | Weekday Duties | Friday Duties | Saturday Duties | Sunday/Holiday Duties | Total Duties | Main Duties | Sub Duties");
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------");
+        
+        for (String member : members) {
+            System.out.printf("%-4s | %-14d | %-13d | %-15d | %-22d | %-12d | %-11d | %-10d%n", 
+                              member, 
+                              dutyCounts.get(member)-fridayDutyCounts.get(member)-saturdayDutyCounts.get(member)-weekendDutyCounts.get(member)+weekdayCounts.get(member),      // 월화수목 근무 횟수
+                              fridayDutyCounts.get(member),       // 금요일 근무 횟수
+                              saturdayDutyCounts.get(member),     // 토요일 근무 횟수
+                              weekendDutyCounts.get(member),       // 일요일 및 공휴일 근무 횟수
+                              dutyCounts.get(member),								  // 총 근무 횟수
+                              mainDutyCounts.get(member),     // 메인 담당 횟수
+                              subDutyCounts.get(member)      // 서브 담당 횟수
+                              );     
+            				  	
+        }
+        
     }
 
     // 스케줄 생성 함수
     public static List<Schedule> createSchedule(List<String> members, List<Vacation> vacationSchedule, YearMonth nextMonth, int daysInMonth,
                                                 Map<String, Integer> dutyCounts, Map<String, Integer> weekendDutyCounts, 
                                                 Map<String, Integer> fridayDutyCounts, Map<String, Integer> lastDutyDay, 
-                                                Map<String, Integer> mainDutyCounts, Map<String, Integer> subDutyCounts) {
+                                                Map<String, Integer> mainDutyCounts, Map<String, Integer> subDutyCounts, Map<String, Integer> saturdayDutyCounts) {
         List<Schedule> schedule = new ArrayList<>();
         Map<Integer, List<String>> vacationDays = new HashMap<>();
 
@@ -236,18 +269,18 @@ public class 월화수목_금_토_일공휴일_로직 {
                 subDutyCounts.put(sub, subDutyCounts.get(sub) + 1);      // 서브 근무 횟수 증가
             } else if (isSaturday(day, nextMonth)) {
                 // 토요일 메인 담당자 배정
-                String main = assignDuty(members, day, schedule, vacationDays, weekendDutyCounts, lastDutyDay, mainDutyCounts, subDutyCounts, true, null, day - 1);
+                String main = assignDuty(members, day, schedule, vacationDays, saturdayDutyCounts, lastDutyDay, mainDutyCounts, subDutyCounts, true, null, day - 1);
                 if (main == null) continue;
-
+               
                 // 토요일 서브 담당자 배정
-                String sub = assignDuty(members, day, schedule, vacationDays, weekendDutyCounts, lastDutyDay, mainDutyCounts, subDutyCounts, false, main, day - 1);
+                String sub = assignDuty(members, day, schedule, vacationDays, saturdayDutyCounts, lastDutyDay, mainDutyCounts, subDutyCounts, false, main, day - 1);
                 if (sub == null) continue;
 
                 schedule.add(new Schedule(day, main, sub));
                 lastDutyDay.put(main, day);
                 lastDutyDay.put(sub, day);
-                weekendDutyCounts.put(main, weekendDutyCounts.get(main) + 1);
-                weekendDutyCounts.put(sub, weekendDutyCounts.get(sub) + 1);
+                saturdayDutyCounts.put(main, saturdayDutyCounts.get(main) + 1);
+                saturdayDutyCounts.put(sub, saturdayDutyCounts.get(sub) + 1);
                 dutyCounts.put(main, dutyCounts.get(main) + 1);
                 dutyCounts.put(sub, dutyCounts.get(sub) + 1);
                 mainDutyCounts.put(main, mainDutyCounts.get(main) + 1);  // 메인 근무 횟수 증가
@@ -321,7 +354,40 @@ public class 월화수목_금_토_일공휴일_로직 {
                 candidates.add(member);
             }
         }
-
+        /*
+	    if((day == 12 || day == 13)) {
+	    	System.out.println("총 멤버 : ");
+	    	 for (String member : members) {
+	    		System.out.println(member);
+	    	}
+	    	
+	    	
+	    	System.out.println("제외된 사람 : ");
+	    	for (String ex : excludeSet) {
+	    		System.out.println(ex);
+	    	}
+	    	System.out.println("휴가간 사람 : ");
+	    	for(String member : members) {
+	    		if(isOnVacation(vacationDays, member, day)) {
+	    			System.out.println(member);
+	    		}
+	    	}
+	    	System.out.println("최근 근무 : ");
+	    	for(String member : members) {
+	    		if(hasRecentDuty(schedule, member, day, lastDutyDay, checkDays)) {
+	    			System.out.println(member);
+	    		}
+	    	}
+	    	
+	    	
+	    	System.out.println();
+	    	System.out.println("후보군 : ");
+	    	System.out.println(isMain);
+	    	for (String candidate : candidates) {
+	    		System.out.println(candidate);
+	    	}
+	    } 
+	    */
         if (candidates.isEmpty()) {
             return null;
         }
@@ -341,7 +407,7 @@ public class 월화수목_금_토_일공휴일_로직 {
         List<String> topCandidates = new ArrayList<>();
         int minDuty = isMain ? mainDutyCounts.get(candidates.get(0)) : subDutyCounts.get(candidates.get(0));
         int minLastDay = lastDutyDay.get(candidates.get(0));
-
+        
         for (String candidate : candidates) {
             if ((isMain ? mainDutyCounts.get(candidate) : subDutyCounts.get(candidate)) == minDuty
                 && lastDutyDay.get(candidate) == minLastDay) {
@@ -359,7 +425,7 @@ public class 월화수목_금_토_일공휴일_로직 {
     private static boolean hasRecentDuty(List<Schedule> schedule, String member, int day, Map<String, Integer> lastDutyDay, int... checkDays) {
         int lastDay = lastDutyDay.getOrDefault(member, -1);
         // 최근 근무일과 하루 차이일 경우 연속 근무 금지
-        if (lastDay != -1 && (day - lastDay) <= 1) {
+        if (lastDay != -1 && ( 0<(day - lastDay) && (day - lastDay)<=1)) {
             return true;
         }
 
