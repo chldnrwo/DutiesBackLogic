@@ -212,14 +212,14 @@ public class 근무로직_0927 {
         }
         
         System.out.println();
-        System.out.println("\nTotal Member-wise Duty Distribution:");
+        System.out.println("\nTotal Member-wise Duty Distribution( Since 2024/09 ~ ):");
         System.out.println("Member | Weekday Duties | Friday Duties | Saturday Duties | Sunday/Holiday Duties | Total Duties | Main Duties | Sub Duties");
         System.out.println("---------------------------------------------------------------------------------------------------------------------------");
         
         for (String member : members) {
             System.out.printf("%-4s | %-14d | %-13d | %-15d | %-22d | %-12d | %-11d | %-10d%n", 
                               member, 
-                              dutyCounts.get(member)-fridayDutyCounts.get(member)-saturdayDutyCounts.get(member)-weekendDutyCounts.get(member)+weekdayCounts.get(member),      // 월화수목 근무 횟수
+                              dutyCounts.get(member)-fridayDutyCounts.get(member)-saturdayDutyCounts.get(member)-weekendDutyCounts.get(member),      // 월화수목 근무 횟수
                               fridayDutyCounts.get(member),       // 금요일 근무 횟수
                               saturdayDutyCounts.get(member),     // 토요일 근무 횟수
                               weekendDutyCounts.get(member),       // 일요일 및 공휴일 근무 횟수
