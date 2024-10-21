@@ -3,7 +3,6 @@ package alpha;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class 근무로직_0927 {
@@ -17,20 +16,6 @@ public class 근무로직_0927 {
         YearMonth nextMonth = YearMonth.of(currentDate.getYear(), currentDate.getMonth());
         int daysInMonth = nextMonth.lengthOfMonth();
 
-        // 당월 휴가 목록
-//        List<Vacation> vacationSchedule = Arrays.asList(
-//            new Vacation(1, 1, "신선규"),
-//            new Vacation(7, 9, "신선규"),
-//            new Vacation(1, 7, "이솔님"),
-//            new Vacation(6, 8, "전상현"),
-//            new Vacation(6, 6, "조용현"),
-//            new Vacation(27, 27, "조용현"),
-//            new Vacation(12, 15, "김종환"),
-//            new Vacation(19, 22, "최욱재"),
-//            new Vacation(20, 22, "조민기"),
-//            new Vacation(6, 8, "최병훈"),
-//            new Vacation(28, 30, "최병훈")
-//        );
 
         // 당월 휴가 목록
         List<Vacation> vacationSchedule = Arrays.asList(
@@ -142,6 +127,8 @@ public class 근무로직_0927 {
         lastDutyDay.put("신선규", 30);
         mainDutyCounts.put("신선규", 4);
         subDutyCounts.put("신선규", 4);
+        
+        //여기까지함
         
         // 메인 함수 호출
         List<Schedule> schedule = createSchedule(members, vacationSchedule, nextMonth,
@@ -354,40 +341,6 @@ public class 근무로직_0927 {
                 candidates.add(member);
             }
         }
-        /*
-	    if((day == 12 || day == 13)) {
-	    	System.out.println("총 멤버 : ");
-	    	 for (String member : members) {
-	    		System.out.println(member);
-	    	}
-	    	
-	    	
-	    	System.out.println("제외된 사람 : ");
-	    	for (String ex : excludeSet) {
-	    		System.out.println(ex);
-	    	}
-	    	System.out.println("휴가간 사람 : ");
-	    	for(String member : members) {
-	    		if(isOnVacation(vacationDays, member, day)) {
-	    			System.out.println(member);
-	    		}
-	    	}
-	    	System.out.println("최근 근무 : ");
-	    	for(String member : members) {
-	    		if(hasRecentDuty(schedule, member, day, lastDutyDay, checkDays)) {
-	    			System.out.println(member);
-	    		}
-	    	}
-	    	
-	    	
-	    	System.out.println();
-	    	System.out.println("후보군 : ");
-	    	System.out.println(isMain);
-	    	for (String candidate : candidates) {
-	    		System.out.println(candidate);
-	    	}
-	    } 
-	    */
         if (candidates.isEmpty()) {
             return null;
         }
